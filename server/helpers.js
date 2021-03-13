@@ -5,7 +5,7 @@ const nodemailer = require("nodemailer");
 require("dotenv").config();
 const { PASSWORD } = process.env;
 
-const sendMyEmail = async (recipientEmail, senderName, emailText, emailHtml) => {
+const sendMyEmail = async (recipientEmail, senderName, emailHtml, attachments) => {
 
     let transporter = nodemailer.createTransport({
         host: "smtp.gmail.com",
@@ -26,11 +26,13 @@ const sendMyEmail = async (recipientEmail, senderName, emailText, emailHtml) => 
     });
 
     let email = await transporter.sendMail({
+        //from: 'marlin.schneider84@ethereal.email',
         from: 'Laras Cards <larascards9@gmail.com>', 
         to: `${recipientEmail}`,
         subject: `You have a card from ${senderName}`, 
-        text: emailText, 
+        text: "Please enable the HTML view.", 
         html: emailHtml, 
+        attachments : attachments,
     });
 
     console.log("Message sent: %s", email.messageId);
@@ -39,10 +41,10 @@ const sendMyEmail = async (recipientEmail, senderName, emailText, emailHtml) => 
 };
 
 sendMyEmail(
-    "larascards9@gmail.com",
+    "larascards9@gmail.com, ",
     "Lara",
-    "Hello world woop",
-    "<b>Hello world woop</b>"
-).catch(console.error);
+    '<head><style>.background {background-color: linen;width:100%;height:500px;} h1,p {color: maroon;text-align:center;} .gif {display: block; margin-left:auto; margin-right:auto} </style></head><body><div class="background"><h1>This is a heading</h1><p>This is a paragraph.</p><img src="cid:unique@nodemailer.com" class="gif"/></div></body>',
+    [{ "filename": "giphy.gif", "path": "./public/giphy.gif", "cid": "unique@nodemailer.com" }]
+    ).catch(console.error);
 
 // module.exports = { sendMyEmail };

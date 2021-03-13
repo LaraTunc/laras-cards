@@ -7,22 +7,22 @@ const activeClassName = 'nav-item-active';
 
 const Navbar = ()=>{
     return (
-        <NavArea>
+        <Wrapper>
             <Logo src=".././logo.png" alt="logo"/>
             <Links>
                 <StyledLink exact to="/">Home</StyledLink>
                 <StyledLink to="/about">About</StyledLink>
                 <StyledLink to="/account/login">Login</StyledLink>
             </Links>
-        </NavArea>
+        </Wrapper>
     );
 };
 
-const NavArea = styled.div`
+const Wrapper = styled.div`
 width: 100%;
 height: 60px;
 padding: 5px;
-background: gray;
+background: yellowgreen;
 display:flex;
 justify-content: space-between;
 `;
