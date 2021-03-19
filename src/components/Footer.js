@@ -7,8 +7,6 @@ const Footer = ()=> {
         <Wrapper>
             <StyledLink to="/contact-us">Contact Us</StyledLink>
             <div>|</div>
-            <StyledLink to="/pickup/ecard">Pickup an e-card</StyledLink>
-            <div>|</div>
             <StyledLink to="/portfolio">More from Lara</StyledLink>
         </Wrapper>
     );

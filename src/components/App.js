@@ -1,30 +1,36 @@
-import React, { useState, useEffect } from 'react';
+import React, { useContext } from 'react';
 import GlobalStyles from './GlobalStyles';
 import { BrowserRouter,
   Switch,
-  Route } from 'react-router-dom';
+  Route} from 'react-router-dom';
 import styled from 'styled-components';
 import Navbar from './Navbar';
 import Footer from './Footer';
 import Homepage from './Homepage';
 import AboutUs from './AboutUs';
+import SendCard from './SendCard';
+import BirthdayCards from './BirthdayCards';
+import { UserContext } from './UserContext';
+import XmasCards from './XmasCards';
+import ValentinesCards from './ValentinesCards';
+import FunnyCards from './FunnyCards';
+import CustomCards from './CustomCards';
 
-function App() {
-  const [bacon, setBacon] = useState(null);
+const App = ()=> {
+  const { status, error } = useContext(UserContext);
 
-  useEffect(() => {
-    fetch('/bacon')
-      .then(res => res.json())
-      .then(data => setBacon(data));
-  }, []);
-  
   return (
     <BrowserRouter>
       <Wrapper>
         <Wrapper2>
           <GlobalStyles/>
           <Navbar/>
-          <Switch>
+          { error 
+          ? (<div>{error}</div>) 
+          : status === "loading" 
+          ? (<div>Loading</div>)
+          : ( 
+            <Switch>
             <Route exact path="/">
               <Homepage/>
             </Route>
@@ -35,31 +41,33 @@ function App() {
               <div>Login</div>
             </Route>
             <Route exact path="/birthday">
-              <div>Birthday cards</div>
+              <BirthdayCards />
             </Route>
             <Route exact path="/christmas">
-              <div>Christmas cards</div>
+              <XmasCards />
             </Route>
             <Route exact path="/valentines">
-              <div>Valentine's day cards</div>
+              <ValentinesCards/>
             </Route>
             <Route exact path="/funny">
-              <div>Funny cards</div>
+              <FunnyCards/>
             </Route>
             <Route exact path="/custom">
-              <div>Create your own card</div>
+              <CustomCards/>
+            </Route>
+            <Route exact path="/:cardId/send">
+              <SendCard/>
             </Route>
             <Route exact path="/contact-us">
               <div>Contact Us</div>
-            </Route>
-            <Route exact path="/pickup/ecard">
-              <div>Pickup an e-card</div>
             </Route>
             <Route exact path="/portfolio">
               <div>This is my portfolio</div>
             </Route>
           </Switch>
+          )}
         </Wrapper2>
+        
         <Footer/>
       </Wrapper>
     </BrowserRouter>

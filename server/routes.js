@@ -1,7 +1,7 @@
 const router = require("express").Router();
-const { getSomething,  } = require("./handlers");
+const { sendCard } = require("./handlers");
 
-router.get("/bacon",getSomething);
+router.post("/sendCard",sendCard);
 
 
 module.exports = router; 

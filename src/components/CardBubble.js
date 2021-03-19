@@ -2,10 +2,10 @@ import React from "react";
 import styled from 'styled-components';
 import { NavLink } from 'react-router-dom';
 
-const CardBubble = ({path, icon, type})=> {
+const CardBubble = ({path, imgPath, type})=> {
     return (
         <Wrapper>
-            <StyledLink exact to={path}>{icon}</StyledLink>
+            <StyledLink exact to={path}><Img src={imgPath} alt={type}/></StyledLink>
             <Label>{type}</Label>
         </Wrapper>
     );
@@ -30,6 +30,11 @@ background: beige;
 &:hover {
     transform: scale(1.1);
 };
+`;
+
+const Img = styled.img`
+max-width:70%; 
+max-height:70%;
 `;
 
 const Label = styled.div`

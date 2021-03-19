@@ -26,7 +26,6 @@ const sendMyEmail = async (recipientEmail, senderName, emailHtml, attachments) =
     });
 
     let email = await transporter.sendMail({
-        //from: 'marlin.schneider84@ethereal.email',
         from: 'Laras Cards <larascards9@gmail.com>', 
         to: `${recipientEmail}`,
         subject: `You have a card from ${senderName}`, 
@@ -37,14 +36,11 @@ const sendMyEmail = async (recipientEmail, senderName, emailHtml, attachments) =
 
     console.log("Message sent: %s", email.messageId);
     console.log("Preview URL: %s", nodemailer.getTestMessageUrl(email));
-    
+
+    if(email.messageId) {
+        return email.messageId;
+    };
+
 };
 
-sendMyEmail(
-    "larascards9@gmail.com, ",
-    "Lara",
-    '<head><style>.background {background-color: linen;width:100%;height:500px;} h1,p {color: maroon;text-align:center;} .gif {display: block; margin-left:auto; margin-right:auto} </style></head><body><div class="background"><h1>This is a heading</h1><p>This is a paragraph.</p><img src="cid:unique@nodemailer.com" class="gif"/></div></body>',
-    [{ "filename": "giphy.gif", "path": "./public/giphy.gif", "cid": "unique@nodemailer.com" }]
-    ).catch(console.error);
-
-// module.exports = { sendMyEmail };
+module.exports = { sendMyEmail };
