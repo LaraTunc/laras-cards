@@ -15,8 +15,8 @@ const Birthday1 = ()=>{
 
 const Wrapper = styled.div`
 background: linen; 
-width: 100%; 
-max-height: 500px;
+max-width: 100%; 
+max-height: 500px; 
 padding: 10px;
 font-family: sans-serif;
 `;

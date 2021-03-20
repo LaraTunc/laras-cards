@@ -1,9 +1,9 @@
 import React from "react";
 import styled from 'styled-components';
 
-const Title = ({text})=> {
+const Title = ({children})=> {
     return(
-        <Wrapper>{text}</Wrapper>
+        <Wrapper>{children}</Wrapper>
     );
 };
 

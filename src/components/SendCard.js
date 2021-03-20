@@ -1,13 +1,13 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
-import { cards } from './cards/data/cardsData';
-import Birthday1 from './cards/Birthday1';
-import { UserContext } from './UserContext';
+import { cards } from './cards/cardsData';
 import { useParams } from 'react-router';
+import Input from './Input';
+import Form from './Form';
+import Button from './Button';
 
 const SendCard = ()=>{
     const { cardId } = useParams();
-    const { selectedCard } = useContext(UserContext);
 
     const [formData, setFormData] = useState({
         from: {
@@ -17,18 +17,22 @@ const SendCard = ()=>{
         to:{
             email:'',
         },
-        customMessage:'',
     });
     // const [formError, setFormError] = useState();
 
-    console.log("selectedCard",selectedCard);
-    console.log("cards[selectedCard]",cards[selectedCard]);
+    console.log("cardId",cardId);
+    console.log("cards[cardId]",cards[cardId]);
+    
+    const cardsArray = Object.values(cards);
+    const card = cardsArray.find((cardObject)=>{
+        return cardObject.id === cardId;
+    });
 
     const handleClick = (ev)=>{
         ev.preventDefault();
-        const selectedCardHtml =  cards[selectedCard].html;
+        const selectedCardHtml =  cards[cardId].html;
         console.log("selectedCardHtml",selectedCardHtml);
-        const selectedCardImagePath =  cards[selectedCard].image[0];
+        const selectedCardImagePath =  cards[cardId].imagePath[0];
         console.log("selectedCardImagePath",selectedCardImagePath);
 
         fetch("/sendCard", {
@@ -49,41 +53,34 @@ const SendCard = ()=>{
     return(
         <>
             <Wrapper>
-                {cardId==="birthday1" 
-                ? <Birthday1/> 
-                : cardId==="birthday2" 
-                ? <div>Birthday2</div> 
-                : <div>Card not found</div>}
+                {card.component}
             </Wrapper>
 
             <Form>
-                <label><b>From</b></label>
-                    <label>Full Name</label>
-                    <input type="text" 
+                <Label><b>From</b></Label>
+                    <Input type={"text"} 
                         value={formData.from.fullName} 
+                        placeholder={"Full name"}
                         onChange={(ev)=>{setFormData({...formData, from: {...formData.from,fullName: ev.target.value}})}}
+                        required
                     />
 
-                    <label>Email</label>
-                    <input type="email" 
+                    <Input type={"email"} 
                         value={formData.from.email} 
+                        placeholder={"Email"}
                         onChange={(ev)=>{setFormData({...formData, from: {...formData.from, email: ev.target.value} })}}
+                        required
                     />
 
-                <label><b>To</b></label>
-                    <label>Email</label>
-                    <input type="email" 
+                <Label><b>To</b></Label>
+                    <Input type={"email"} 
                         value={formData.to.email} 
+                        placeholder={"Email"}
                         onChange={(ev)=>{setFormData({...formData, to: {...formData.to, email: ev.target.value} })}}
+                        required
                     />
 
-                <label><b>Custom Message</b></label>
-                <input type="text" 
-                    value={formData.customMessage} 
-                    onChange={(ev)=>{setFormData({...formData, customMessage: ev.target.value})}}
-                />
-
-                <button onClick={handleClick}>Send Card</button>
+                <Button onClick={handleClick}>Send Card</Button>
             </Form>
 
         </>
@@ -95,11 +92,8 @@ width:90%;
 margin:15px;
 `;
 
-const Form = styled.form`
-margin-bottom:15px;
-display:flex;
-flex-direction:column;
-width:40%;
+const Label = styled.label`
+margin-top: 10px;
 `;
 
 export default SendCard;

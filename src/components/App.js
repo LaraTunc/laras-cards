@@ -15,6 +15,7 @@ import XmasCards from './XmasCards';
 import ValentinesCards from './ValentinesCards';
 import FunnyCards from './FunnyCards';
 import CustomCards from './CustomCards';
+import ContactUs from './ContactUs';
 
 const App = ()=> {
   const { status, error } = useContext(UserContext);
@@ -59,7 +60,7 @@ const App = ()=> {
               <SendCard/>
             </Route>
             <Route exact path="/contact-us">
-              <div>Contact Us</div>
+              <ContactUs/>
             </Route>
             <Route exact path="/portfolio">
               <div>This is my portfolio</div>

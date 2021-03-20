@@ -5,7 +5,9 @@ const PageTemplate = ({cardType, children})=> {
     return (
         <Wrapper>
             <Title>{cardType} Cards</Title>
-            {children}
+            <CardWrapper>
+                {children}
+            </CardWrapper>
         </Wrapper>
     );
 };
@@ -17,6 +19,10 @@ width: 90%;
 const Title = styled.h1`
 text-align:center;
 padding: 25px;
+`;
+
+const CardWrapper = styled.div`
+display: flex;
 `;
 
 

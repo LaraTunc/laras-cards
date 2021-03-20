@@ -54,7 +54,7 @@ q:before, q:after {
     content: none;
 }
 
-body {
+body, input, button, textarea {
     line-height: 1.25;
     font-size:18px;
 }

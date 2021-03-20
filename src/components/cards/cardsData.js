@@ -1,7 +1,11 @@
+import Birthday1 from "./cardComponents/Birthday1";
+
 export const cards = {
     birthday1: {
         id: "birthday1",
-        image: ["C:/Users/lara.tunc/Documents/concordia-bootcamps/my-app/public/giphy.gif"],
+        type:"birthday",
+        component: <Birthday1/>,
+        imagePath: ["C:/Users/lara.tunc/Documents/concordia-bootcamps/my-app/public/giphy.gif"],
         html: `<!DOCTYPE html>
         <html lang="en">
             <head>
@@ -33,7 +37,7 @@ export const cards = {
                     }
                     .right {
                         flex:1;
-                        margin-left: 10px;
+                        margin-left: 15px;
                     }
                 </style>
             </head>
@@ -50,7 +54,9 @@ export const cards = {
     },
     birthday2 : {
         id: "birthday2",
-        image: [],
+        type:"birthday",
+        component: <div>Birthday Card 2</div>,
+        imagePath: [],
         html: ``,
     },
 };

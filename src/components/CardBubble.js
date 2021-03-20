@@ -33,8 +33,8 @@ background: beige;
 `;
 
 const Img = styled.img`
-max-width:70%; 
-max-height:70%;
+max-width:60%; 
+max-height:60%;
 `;
 
 const Label = styled.div`

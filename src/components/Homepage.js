@@ -12,7 +12,7 @@ const Homepage = ()=> {
                 <CardBubble path={"/christmas"} imgPath={"../.././snowflake.png"} type={"Xmas"}/>
                 <CardBubble path={"/valentines"} imgPath={"../.././heart.png"} type={"Valentine's Day"}/>
                 <CardBubble path={"/funny"} imgPath={"../.././funny.png"} type={"Funny"}/>
-                <CardBubble path={"/custom"} imgPath={"../.././star.png"} type={"Custom"}/>
+                <CardBubble path={"/custom"} imgPath={"../.././custom.png"} type={"Custom"}/>
             </Cards>
         </>
     );

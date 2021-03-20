@@ -8,7 +8,7 @@ const activeClassName = 'nav-item-active';
 const Navbar = ()=>{
     return (
         <Wrapper>
-            <Logo src=".././logo.png" alt="logo"/>
+            <LogoLink exact to="/"><Logo src=".././logo.png" alt="logo"/></LogoLink>
             <Links>
                 <StyledLink exact to="/">Home</StyledLink>
                 <StyledLink to="/about">About</StyledLink>
@@ -51,6 +51,10 @@ margin: 0px 15px;
 &.${activeClassName} {
     border-bottom: 2px solid black;
 };
+`;
+
+const LogoLink = styled(NavLink)`
+text-decoration: none;
 `;
 
 export default Navbar; 
