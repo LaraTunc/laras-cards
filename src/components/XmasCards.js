@@ -4,7 +4,7 @@ import { useHistory } from "react-router-dom";
 import { UserContext } from './UserContext';
 import PageTemplate from './PageTemplate';
 
-const XmasCards = ()=> {
+const XmasCards = ({cardType})=> {
     const { selectedCard, setSelectedCard } = useContext(UserContext);
 
     let history = useHistory();
@@ -16,7 +16,7 @@ const XmasCards = ()=> {
     };
 
     return (
-        <PageTemplate cardType={"Xmas"} >
+        <PageTemplate cardType={cardType} >
             <Card onClick={()=>handleClick("xmas1")} tabindex="0">Xmas Card 1</Card>
         </PageTemplate>
     );

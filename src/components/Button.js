@@ -11,8 +11,9 @@ const StyledButton = styled.button`
 margin-top:15px;
 height: 2em;
 border-radius:5px;
-border: 1px solid lightgray;
+border: 1px solid lightsteelblue;
 padding: 0px 20px;
+background: lightsteelblue;
 &:focus{
     outline: none;
     box-shadow: 0 0 10px #9ecaed;

@@ -3,18 +3,18 @@ import styled from 'styled-components';
 import { useHistory } from "react-router-dom";
 import { UserContext } from './UserContext';
 import PageTemplate from './PageTemplate';
-import { cards } from './cards/cardsData';
+import { cards } from './cards/cardsData/cardsData';
 
 
-const BirthdayCards = ()=> {
+const BirthdayCards = ({cardType})=> {
     const { selectedCard, setSelectedCard } = useContext(UserContext);
+    let history = useHistory();
 
     const cardsArray = Object.values(cards);
-    const BirthdayCards = cardsArray.filter((card)=>{
-        return card.type==="birthday";
+    const birthdayCards = cardsArray.filter((card)=>{
+        return card.type===cardType;
     });
-
-    let history = useHistory();
+    
     const handleClick = (cardId)=>{
         console.log("cardId",cardId);
         setSelectedCard(cardId);
@@ -23,8 +23,8 @@ const BirthdayCards = ()=> {
     };
 
     return (
-        <PageTemplate cardType={"Birthday"} >
-            {BirthdayCards.map((card)=>{
+        <PageTemplate cardType={cardType} >
+            {birthdayCards.map((card)=>{
                 return <Card onClick={()=>handleClick(card.id)} tabindex="0"> {card.component} </Card>
             })}
         </PageTemplate>

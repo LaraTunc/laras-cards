@@ -1,4 +1,4 @@
-import Birthday1 from "./cardComponents/Birthday1";
+import Birthday1 from "../Birthday1";
 
 export const cards = {
     birthday1: {

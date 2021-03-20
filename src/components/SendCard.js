@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { cards } from './cards/cardsData';
+import { cards } from './cards/cardsData/cardsData';
 import { useParams } from 'react-router';
 import Input from './Input';
 import Form from './Form';

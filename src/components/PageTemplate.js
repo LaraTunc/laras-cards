@@ -2,9 +2,15 @@ import React from 'react';
 import styled from 'styled-components';
 
 const PageTemplate = ({cardType, children})=> {
+    const capitalize = (word) => {
+        if (typeof word !== 'string') return ''
+        return word.charAt(0).toUpperCase() + word.slice(1)
+    };
+    const formattedCardType=capitalize(cardType);
+
     return (
         <Wrapper>
-            <Title>{cardType} Cards</Title>
+            <Title>{formattedCardType} Cards</Title>
             <CardWrapper>
                 {children}
             </CardWrapper>

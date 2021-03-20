@@ -16,6 +16,7 @@ import ValentinesCards from './ValentinesCards';
 import FunnyCards from './FunnyCards';
 import CustomCards from './CustomCards';
 import ContactUs from './ContactUs';
+import Login from './Login';
 
 const App = ()=> {
   const { status, error } = useContext(UserContext);
@@ -39,22 +40,28 @@ const App = ()=> {
               <AboutUs/>
             </Route>
             <Route exact path="/account/login">
-              <div>Login</div>
+              <Login/>
+            </Route>
+            <Route exact path="/account/reset-password">
+              <div>Forgot password</div>
+            </Route>
+            <Route exact path="/account/sign-up">
+              <div>Sign up</div>
             </Route>
             <Route exact path="/birthday">
-              <BirthdayCards />
+              <BirthdayCards cardType={"birthday"} />
             </Route>
             <Route exact path="/christmas">
-              <XmasCards />
+              <XmasCards cardType={"christmas"} />
             </Route>
             <Route exact path="/valentines">
-              <ValentinesCards/>
+              <ValentinesCards cardType={"valentines"} />
             </Route>
             <Route exact path="/funny">
-              <FunnyCards/>
+              <FunnyCards cardType={"funny"}/>
             </Route>
             <Route exact path="/custom">
-              <CustomCards/>
+              <CustomCards cardType={"custom"}/>
             </Route>
             <Route exact path="/:cardId/send">
               <SendCard/>
