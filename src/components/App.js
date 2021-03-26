@@ -17,9 +17,17 @@ import FunnyCards from './FunnyCards';
 import CustomCards from './CustomCards';
 import ContactUs from './ContactUs';
 import Login from './Login';
+import ForgotPassword from './ForgotPassword';
+import SignUp from './SignUp';
+import ResetPassword from './ResetPassword';
+import MainAccount from './MainAccount';
+import History from './History';
+import Confirmation from './Confirmation';
+import Logout from './Logout';
 
 const App = ()=> {
-  const { status, error } = useContext(UserContext);
+  const { user } = useContext(UserContext);
+  console.log("user",user);
 
   return (
     <BrowserRouter>
@@ -27,11 +35,6 @@ const App = ()=> {
         <Wrapper2>
           <GlobalStyles/>
           <Navbar/>
-          { error 
-          ? (<div>{error}</div>) 
-          : status === "loading" 
-          ? (<div>Loading</div>)
-          : ( 
             <Switch>
             <Route exact path="/">
               <Homepage/>
@@ -39,14 +42,29 @@ const App = ()=> {
             <Route exact path="/about">
               <AboutUs/>
             </Route>
-            <Route exact path="/account/login">
+            <Route exact path="/login">
               <Login/>
             </Route>
-            <Route exact path="/account/reset-password">
-              <div>Forgot password</div>
+            <Route exact path="/sign-up">
+              <SignUp/>
             </Route>
-            <Route exact path="/account/sign-up">
-              <div>Sign up</div>
+            <Route exact path="/forgot-password">
+              <ForgotPassword/>
+            </Route>
+            <Route exact path="/account">
+              <MainAccount/>
+            </Route>
+            <Route exact path="/account/reset-password">
+              <ResetPassword/>
+            </Route>
+            <Route exact path="/account/history">
+              <History/>
+            </Route>
+            <Route exact path="/account/logout">
+              <Logout/>
+            </Route>
+            <Route exact path="/confirmation">
+              <Confirmation/>
             </Route>
             <Route exact path="/birthday">
               <BirthdayCards cardType={"birthday"} />
@@ -73,9 +91,7 @@ const App = ()=> {
               <div>This is my portfolio</div>
             </Route>
           </Switch>
-          )}
         </Wrapper2>
-        
         <Footer/>
       </Wrapper>
     </BrowserRouter>

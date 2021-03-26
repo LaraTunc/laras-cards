@@ -25,7 +25,7 @@ const BirthdayCards = ({cardType})=> {
     return (
         <PageTemplate cardType={cardType} >
             {birthdayCards.map((card)=>{
-                return <Card onClick={()=>handleClick(card.id)} tabindex="0"> {card.component} </Card>
+                return <Card onClick={()=>handleClick(card.id)} tabindex="0" key={card.id}> {card.component} </Card>
             })}
         </PageTemplate>
     );

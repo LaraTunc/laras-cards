@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { NavLink, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router';
 import styled from 'styled-components';
 import Button from './Button';
 import Form from './Form';
@@ -8,16 +8,17 @@ import Title from './Title';
 import { UserContext } from './UserContext';
 import Error from './Error';
 import Spinner from './Spinner';
-import { emailIsValid, passwordIsValid } from './utils';
+import { fullNameIsValid, emailIsValid, passwordIsValid } from './utils';
 
-const Login = ()=>{
+const SignUp =()=>{
     const { status, setUserId, setUser, setStatus } = useContext(UserContext);
     const [ error, setError ] = useState();
     const [formData, setFormData] = useState({
+        userName: '',
         email: '',
         password: '',
     });
-    const [formError, setFormError] = useState();
+    const [ formError, setFormError ] = useState();
     const [ clicked, setClicked ] = useState();
     const history = useHistory();
 
@@ -27,7 +28,10 @@ const Login = ()=>{
         setClicked(true);
 
         //validate form data for errors
-        if(!emailIsValid(formData.email)){
+        if(!fullNameIsValid(formData.userName)) {
+            setFormError("User name cannot be shorter than 2 characters.");
+            setStatus("idle");
+        } else if (!emailIsValid(formData.email)){
             setFormError("Email is invalid.");
             setStatus("idle");
         } else if (!passwordIsValid(formData.password)) {
@@ -35,7 +39,7 @@ const Login = ()=>{
             setStatus("idle");
         } else {
             // start process if no form errors 
-            fetch("/getUser", {
+            fetch("/addUser", {
                 method: "POST",
                 body: JSON.stringify({...formData}),
                 headers: {
@@ -48,8 +52,8 @@ const Login = ()=>{
                 console.log(json);
                 setStatus("idle");
                 // if successful (200) setUser
-                if(json.status===200){
-                    setUserId(json.userId);
+                if(json.status===201){
+                    setUserId(json.user._id);
                     setUser(json.user);
                     setError('');
                     history.push("/");
@@ -57,15 +61,22 @@ const Login = ()=>{
                     // if error display error 
                     setError(json.error);
                 };
-            })    
+            })
         };
 
     };
 
+
     return (
         <Wrapper>
-            <Title>Login</Title>
+            <Title>Sign Up</Title>
             <Form> 
+                <Input 
+                    placeholder={"Enter user name"} 
+                    value={formData.userName}  
+                    onChange={(ev)=>{setFormData({...formData,  userName: ev.target.value})}}
+                    highlight={clicked && (fullNameIsValid(formData.userName) ? "default" : "2px solid red")}
+                />
                 <Input 
                     type={"email"} 
                     placeholder={"Enter email"} 
@@ -82,15 +93,13 @@ const Login = ()=>{
                 />
                 <Button onClick={handleClick}>
                     {status==="idle" 
-                        ? "Login" 
+                        ? "Sign Up" 
                         : <Spinner/>
                     }
                 </Button>
                 {error && <Error>{error}</Error>}
                 {formError && <Error>{formError}</Error>}
             </Form>
-            <StyledLink to="/forgot-password">Forgot my password?</StyledLink>
-            <StyledLink to="/sign-up">I don't have an account</StyledLink>
         </Wrapper>
     );
 };
@@ -104,10 +113,4 @@ justify-content:center;
 align-items:center;
 `;
 
-const StyledLink = styled(NavLink)`
-color: gray;
-margin-top: 5px;
-`;
-
-
-export default Login;
+export default SignUp;

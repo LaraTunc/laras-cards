@@ -1,18 +1,23 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from 'styled-components';
 import { NavLink } from 'react-router-dom';
+import { UserContext } from "./UserContext";
 
 const activeClassName = 'nav-item-active';
 
-
 const Navbar = ()=>{
+    const { userId } = useContext(UserContext);
+
     return (
         <Wrapper>
             <LogoLink exact to="/"><Logo src=".././logo.png" alt="logo"/></LogoLink>
             <Links>
                 <StyledLink exact to="/">Home</StyledLink>
                 <StyledLink to="/about">About</StyledLink>
-                <StyledLink to="/account/login">Login</StyledLink>
+                {userId 
+                    ? <StyledLink to="/account">Account</StyledLink>
+                    : <StyledLink to="/login">Login</StyledLink> 
+                }
             </Links>
         </Wrapper>
     );

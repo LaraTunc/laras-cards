@@ -1,17 +1,297 @@
 'use strict';
 
-const { sendMyEmail } = require("./helpers");
+const nodemailer = require("nodemailer");
+require("dotenv").config();
+const { MongoClient } = require("mongodb"); 
+const assert = require("assert");
+const { v4: uuidv4 } = require('uuid');
+const { MONGO_URI } = process.env;
+const { PASSWORD } = process.env;
 
-const sendCard = (req,res)=>{
-    const { formData, selectedCardHtml, selectedCardImagePath } = req.body;
-    const messageId = sendMyEmail(
-        formData.to.email,
-        formData.from.fullName,
-        selectedCardHtml,
-        [{ "filename": "gif", "path": selectedCardImagePath, "cid": "unique@nodemailer.com" }]
-    ).catch(console.error);
-
-    res.status(201).json({formData, selectedCardHtml, messageId });
+const options = {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
 };
 
-module.exports = { sendCard };
+let transporter = nodemailer.createTransport({
+    host: "smtp.gmail.com",
+    port: 465,
+    secure: true,
+    auth: {
+        user: 'larascards9@gmail.com', 
+        pass: PASSWORD, 
+    },
+});
+
+const getUser = async(req,res)=> {
+    const { email, password } = req.body;
+    const client = await MongoClient(MONGO_URI, options);
+    try {
+        await client.connect();
+        console.log("connected!");
+        const db = client.db("laras-cards");
+        const user = await db.collection("users").findOne({email});
+
+        client.close();
+        console.log("disconnected!");
+
+        if(!user) {
+            return res.status(404).json({
+                status:404,
+                error: "User not found. Please try signing up first.",
+            })
+        } else if (user.password!== password) {
+            return res.status(401).json({
+                status:401,
+                error: "The password is incorrect."
+            });
+        } else {
+            return res.status(200).json({
+                status:200,
+                message: "Successfully logged in",
+                userId: user._id,
+                user,
+            });
+        };
+
+    }catch (err) {
+        console.log(err.stack);
+        client.close();
+        console.log("disconnected!");
+
+        return res.status(500).json({ 
+            status: 500,  
+            error: err
+        });
+    };
+};
+
+const addUser = async (req,res)=>{
+    const { userName, email, password,} = req.body;
+    const client = await MongoClient(MONGO_URI, options);
+    try {
+        await client.connect();
+        console.log("connected!");
+        const db = client.db("laras-cards");
+        const user = {
+            _id: uuidv4(),
+            userName,
+            email,
+            password,
+            sentCards: {},
+            type: "user",
+        };
+        const result = await db.collection("users").insertOne(user);
+        assert.equal(1, result.insertedCount);
+        
+        client.close();
+        console.log("disconnected!");
+
+        if(result.insertedCount===1) {
+            return res.status(201).json({ 
+                status: 201, 
+                message: "User added.",
+                user
+            });
+        } else {
+            return res.status(400).json({ 
+                status: 400,  
+                error: "Input not accepted."
+            });
+        };
+
+    } catch (err) {
+        console.log(err.stack);
+        client.close();
+        console.log("disconnected!");
+
+        return res.status(500).json({ 
+            status: 500,  
+            error: err
+        });
+    };
+};
+
+const forgotPassword = async (req,res)=> {
+    const { email } = req.body;
+    const client = await MongoClient(MONGO_URI, options);
+    try {
+        await client.connect();
+        console.log("connected!");
+        const db = client.db("laras-cards");
+        const user = await db.collection("users").findOne({email});
+
+        if(user){
+            //if user exists resend password
+            const password = user.password;
+
+            let info = await transporter.sendMail({
+                from: 'Laras Cards <larascards9@gmail.com>', 
+                to: `${email}`,
+                subject: "Your password for Laras Cards", 
+                text: `Here is your password: ${password}. Please reset it upon login for maximum security.`, 
+                html: `Here is your password: ${password}. Please reset it upon login for maximum security.`, 
+            }).catch((error)=>{
+                console.log(error);
+                return res.status(500).json({
+                    status:500,
+                    error,
+                });
+            });
+            console.log("Password email sent: %s", info.messageId);
+            const messageId = info.messageId;
+
+            client.close();
+            console.log("disconnected!");
+            
+            return res.status(200).json({
+                status:200,
+                messageId,
+                message: "An email to reset your password has been sent. Please refer to your email to login."
+            });
+
+    }else {
+        //if user does not exist 
+        client.close();
+            console.log("disconnected!");
+            
+            return res.status(404).json({
+                status:404,
+                error: "User not found. Please try signing up first."
+            });
+
+    };
+
+    } catch (err) {
+        console.log(err.stack);
+        client.close();
+        console.log("disconnected!");
+        return res.status(500).json({
+            status:500,
+            error: err,
+        });
+    };
+};
+
+const resetPassword = async (req,res)=> {
+    const { _id, newPassword } = req.body;
+    const client = await MongoClient(MONGO_URI, options);
+    try {
+        await client.connect();
+        console.log("connected!");
+        const db = client.db("laras-cards");
+        const user = await db.collection("users").findOne({_id});
+        const newValues = {$set: {password : newPassword }};
+        const result = await db.collection("users").updateOne({_id},newValues);
+
+        assert.equal(1, result.matchedCount);
+
+        client.close();
+        console.log("disconnected!");
+
+        //Success
+        return res.status(200).json({
+            status:200,
+            user,
+            message: "Your password has been changed."
+        });
+
+    } catch (err) {
+        console.log(err.stack);
+        client.close();
+        console.log("disconnected!");
+        return res.status(500).json({
+            status:500,
+            error: err,
+        });
+    };
+
+};
+
+const sendCard = async (req,res)=>{
+    const { userId, cardId, formData, selectedCardHtml, selectedCardImagePath } = req.body;
+
+    //Send the email 
+    transporter.verify(function(error, success) {
+        if (error) {
+            console.log(error);
+        } else {
+            console.log("Server is ready to take our messages");
+        }
+    });
+
+    let email = await transporter.sendMail({
+        from: 'Laras Cards <larascards9@gmail.com>', 
+        to: `${formData.to.email}`,
+        subject: `You have a card from ${formData.from.fullName}`, 
+        text: "Please enable the HTML view.", 
+        html: selectedCardHtml, 
+        attachments : [{ "filename": "gif", "path": selectedCardImagePath, "cid": "unique@nodemailer.com" }],
+    }).catch((error)=>{
+        console.log(error);
+        return res.status(500).json({
+            status:500,
+            error: "An error occurred. Please check the email you provided is correct."
+        });
+    });
+    console.log("Message sent: %s", email.messageId);
+    const messageId = email.messageId;
+
+    //If there is a logged in user push the sent email data to the database and send response
+    if(userId) {
+        
+        const client = await MongoClient(MONGO_URI, options);
+
+        try {
+            await client.connect();
+            console.log("connected!");
+            const db = client.db("laras-cards");
+            const user = await db.collection("users").findOne({_id: userId});
+    
+            const userSentCards = user.sentCards; 
+            const date = new Date();
+            userSentCards[messageId] = {
+                sentCardId: messageId,
+                date,
+                to: formData.to.email,
+                cardId,
+            };
+            const newValues = {$set: {sentCards : {...userSentCards} }};
+            const result = await db.collection("users").updateOne({_id: userId},newValues);
+    
+            assert.equal(1, result.matchedCount);
+
+            client.close();
+            console.log("disconnected!");
+    
+            //Success for logged in user
+            return res.status(200).json({
+                status:200,
+                messageId,
+                user,
+                message: "Your email has been sent and action added to user history."
+            });
+    
+        } catch (err) {
+            console.log(err.stack);
+            client.close();
+            console.log("disconnected!");
+            return res.status(500).json({
+                status:500,
+                error: err,
+            });
+        };
+
+    } else {
+
+    // If there isn't a logged in user then just send response
+    return res.status(200).json({
+        status:200,
+        messageId,
+        message: "Your email has been sent."
+    });
+    };    
+
+};
+
+module.exports = { getUser, addUser, sendCard, forgotPassword, resetPassword };

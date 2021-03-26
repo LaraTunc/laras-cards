@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const Input = ({children, type, placeholder, onChange, required})=> {
+const Input = ({children, value, type, placeholder, onChange, required, highlight})=> {
     return (
-        <StyledInput type={type} placeholder={placeholder} onChange={onChange} required={required}>{children}</StyledInput>
+        <StyledInput type={type} value={value} placeholder={placeholder} onChange={onChange} required={required} highlight={highlight}>{children}</StyledInput>
     );
 };
 
@@ -16,6 +16,7 @@ margin-top:15px;
     outline: none;
     box-shadow: 0 0 10px #9ecaed;
 };
+border: ${({highlight})=> highlight};
 `;
 
 export default Input;
