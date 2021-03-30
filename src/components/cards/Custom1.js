@@ -1,16 +1,16 @@
 import React from "react";
 import styled from "styled-components";
 
-const Birthday1 = () => {
+const Custom1 = () => {
   return (
     <Wrapper>
-      <Title>Happy Birthday!</Title>
+      <Title>Custom card</Title>
       <Wrapper2>
         <Left>
           <Img src=".././giphy.gif" alt="cat" />
         </Left>
         <Right>
-          <p>Another year of you is a reason to celebrate</p>
+          <p>Insert custom message</p>
         </Right>
       </Wrapper2>
     </Wrapper>
@@ -53,4 +53,4 @@ const Right = styled.div`
   flex: 1;
 `;
 
-export default Birthday1;
+export default Custom1;

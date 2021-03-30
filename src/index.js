@@ -1,7 +1,7 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import App from './components/App';
-import { UserContextProvider } from './components/UserContext';
+import React from "react";
+import ReactDOM from "react-dom";
+import App from "./components/App";
+import { UserContextProvider } from "./components/UserContext";
 
 ReactDOM.render(
   <React.StrictMode>
@@ -9,5 +9,5 @@ ReactDOM.render(
       <App />
     </UserContextProvider>
   </React.StrictMode>,
-  document.getElementById('root')
+  document.getElementById("root")
 );

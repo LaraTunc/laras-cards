@@ -1,16 +1,26 @@
 const router = require("express").Router();
-const { getUser, addUser, resetPassword, forgotPassword,  sendCard } = require("./handlers");
+const {
+  login,
+  signUp,
+  resetPassword,
+  forgotPassword,
+  sendCard,
+  getUser,
+  deleteUser,
+} = require("./handlers");
 
-router.post("/getUser",getUser); //login 
+router.post("/login", login);
 
-router.post("/addUser",addUser); // signUp
+router.post("/sign-up", signUp);
 
-router.post("/sendCard",sendCard); // /guest/sendcard
-    // /:userId/sendcard
+router.post("/send-card", sendCard);
 
-router.post("/reset-password",resetPassword); // "/users/:user_id/reset_password"
+router.post("/get-user", getUser);
 
-router.post("/forgot-password",forgotPassword); // "/forgot_password"
+router.post("/delete-user", deleteUser);
 
+router.post("/reset-password", resetPassword);
 
-module.exports = router; 
+router.post("/forgot-password", forgotPassword);
+
+module.exports = router;

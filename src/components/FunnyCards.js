@@ -1,34 +1,47 @@
-import React, { useContext } from 'react';
-import styled from 'styled-components';
+import React, { useContext } from "react";
+import styled from "styled-components";
 import { useHistory } from "react-router-dom";
-import { UserContext } from './UserContext';
-import PageTemplate from './PageTemplate';
+import { UserContext } from "./UserContext";
+import PageTemplate from "./PageTemplate";
+import { cards } from "./cards/cardsData/cardsData";
 
-const FunnyCards = ({cardType})=> {
-    const { selectedCard, setSelectedCard } = useContext(UserContext);
+const FunnyCards = ({ cardType }) => {
+  const { selectedCard, setSelectedCard } = useContext(UserContext);
+  let history = useHistory();
 
-    let history = useHistory();
-    const handleClick = (cardId)=>{
-        console.log("cardId",cardId);
-        setSelectedCard(cardId);
-        console.log("selectedCard",selectedCard);
-        history.push(`/${cardId}/send`);
-    };
+  const cardsArray = Object.values(cards);
+  const funnyCards = cardsArray.filter((card) => {
+    return card.type === cardType;
+  });
 
-    return (
-        <PageTemplate cardType={cardType} >
-            <Card onClick={()=>handleClick("funny1")} tabindex="0">Funny Card 1</Card>
-        </PageTemplate>
-    );
+  const handleClick = (cardId) => {
+    console.log("cardId", cardId);
+    setSelectedCard(cardId);
+    console.log("selectedCard", selectedCard);
+    history.push(`/${cardId}/send`);
+  };
+
+  return (
+    <PageTemplate cardType={cardType}>
+      {funnyCards.map((card) => {
+        return (
+          <Card onClick={() => handleClick(card.id)} tabindex="0" key={card.id}>
+            {" "}
+            {card.component}{" "}
+          </Card>
+        );
+      })}
+    </PageTemplate>
+  );
 };
 
 const Card = styled.div`
-width: 300px;
-height:150px;
-&:hover {
+  margin: 20px;
+  width: 25%;
+  &:hover {
     transform: scale(1.1);
-};
+  }
+  border: 1px solid black;
 `;
-
 
 export default FunnyCards;
