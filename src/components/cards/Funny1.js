@@ -4,20 +4,37 @@ import styled from "styled-components";
 const Funny1 = () => {
   return (
     <Wrapper>
-      <p>
-        Dear Friend. You are on my mind today. Everyone else is on my nerves.
-        Love, me
-      </p>
+      <Img src=".././funny1.gif" alt="grumpy_cat" />
+      <Title>Dear Friend,</Title>
+      <Title>You are on my mind today.</Title>
+      <Title>Everyone else is on my nerves.</Title>
+      <Title>Love, me</Title>
     </Wrapper>
   );
 };
 
 const Wrapper = styled.div`
-  background: lightyellow;
+  background: black;
   max-width: 100%;
-  max-height: 500px;
-  padding: 10px;
-  font-family: sans-serif;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+`;
+
+const Img = styled.img`
+  max-width: 100%;
+  max-height: 100%;
+  display: block;
+  margin-left: 15%;
+  margin-right: 15%;
+  margin-bottom: 2%;
+`;
+
+const Title = styled.p`
+  text-align: center;
+  color: white;
+  width: 100%;
 `;
 
 export default Funny1;

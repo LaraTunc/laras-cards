@@ -170,7 +170,9 @@ const SendCard = () => {
 
 const Wrapper = styled.div`
   width: 90%;
+  min-height: 500px;
   margin: 15px;
+  border: 1px solid black;
 `;
 
 const Label = styled.label`

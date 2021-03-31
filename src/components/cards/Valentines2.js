@@ -4,17 +4,34 @@ import styled from "styled-components";
 const Valentines2 = () => {
   return (
     <Wrapper>
-      <p>You are the moon of my life... my sun and starts. Khal and Daenerys</p>
+      <Img src=".././valentines2.gif" alt="heart" />
+      <Title>You are my whole heart... Happy Valentine's day</Title>
     </Wrapper>
   );
 };
 
 const Wrapper = styled.div`
-  background: lightyellow;
+  background: black;
   max-width: 100%;
-  max-height: 500px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+`;
+
+const Img = styled.img`
+  max-width: 100%;
+  max-height: 100%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+`;
+
+const Title = styled.h6`
+  text-align: center;
+  color: white;
+  width: 100%;
   padding: 10px;
-  font-family: sans-serif;
 `;
 
 export default Valentines2;

@@ -4,15 +4,13 @@ import styled from "styled-components";
 const Birthday1 = () => {
   return (
     <Wrapper>
-      <Title>Happy Birthday!</Title>
-      <Wrapper2>
-        <Left>
-          <Img src=".././giphy.gif" alt="cat" />
-        </Left>
-        <Right>
-          <p>Another year of you is a reason to celebrate</p>
-        </Right>
-      </Wrapper2>
+      <Left>
+        <Img src=".././birthday1.gif" alt="cat" />
+      </Left>
+      <Right>
+        <Title>Happy Birthday!</Title>
+        <Title>Another year of you is a reason to celebrate.</Title>
+      </Right>
     </Wrapper>
   );
 };
@@ -20,9 +18,12 @@ const Birthday1 = () => {
 const Wrapper = styled.div`
   background: linen;
   max-width: 100%;
-  max-height: 500px;
+  height: 100%;
   padding: 10px;
   font-family: sans-serif;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 `;
 
 const Title = styled.h1`
@@ -32,13 +33,8 @@ const Title = styled.h1`
   margin-bottom: 8px;
 `;
 
-const Wrapper2 = styled.div`
-  display: flex;
-  justify-content: space-between;
-`;
-
 const Img = styled.img`
-  max-width: 100%;
+  max-width: 80%;
   max-height: 100%;
   display: block;
   margin-left: auto;

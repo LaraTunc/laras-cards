@@ -4,20 +4,35 @@ import styled from "styled-components";
 const Birthday3 = () => {
   return (
     <Wrapper>
-      <p>
+      <Img src=".././birthday3.gif" alt="birthday_candles" />
+      <Title>
         I hope you have a great day today and the year ahead is full of many
         blessings.
-      </p>
+      </Title>
     </Wrapper>
   );
 };
 
 const Wrapper = styled.div`
-  background: lightyellow;
+  background: black;
   max-width: 100%;
-  max-height: 500px;
+  height: 100%;
   padding: 10px;
-  font-family: sans-serif;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+const Title = styled.h6`
+  text-align: center;
+  color: white;
+  margin: 5px;
+  margin-bottom: 8px;
+`;
+
+const Img = styled.img`
+  max-width: 60%;
 `;
 
 export default Birthday3;
