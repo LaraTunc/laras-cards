@@ -19,13 +19,12 @@ const Custom1 = () => {
 
 const Wrapper = styled.div`
   background: linen;
-  max-width: 100%;
-  max-height: 500px;
-  padding: 10px;
+  width: 100%;
+  height: 100%;
   font-family: sans-serif;
 `;
 
-const Title = styled.h1`
+const Title = styled.p`
   text-align: center;
   color: maroon;
   margin: 5px;
@@ -38,8 +37,7 @@ const Wrapper2 = styled.div`
 `;
 
 const Img = styled.img`
-  max-width: 100%;
-  max-height: 100%;
+  height: 70%;
   display: block;
   margin-left: auto;
   margin-right: auto;

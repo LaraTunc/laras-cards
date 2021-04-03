@@ -15,19 +15,20 @@ const Funny1 = () => {
 
 const Wrapper = styled.div`
   background: black;
-  max-width: 100%;
-  height: 100%;
+  width: 100%;
   display: flex;
+  align-items: stretch;
+  align-content: stretch;
   flex-direction: column;
   justify-content: center;
 `;
 
 const Img = styled.img`
-  max-width: 100%;
-  max-height: 100%;
+  max-width: 80%;
+  max-height: 50%;
   display: block;
-  margin-left: 15%;
-  margin-right: 15%;
+  margin-left: auto;
+  margin-right: auto;
   margin-bottom: 2%;
 `;
 

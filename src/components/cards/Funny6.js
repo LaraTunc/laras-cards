@@ -4,10 +4,11 @@ import styled from "styled-components";
 const Funny6 = () => {
   return (
     <Wrapper>
+      <Img src=".././funny6.gif" alt="stars" />
       <Title>
-        Roses are Red.
+        🌹 Roses are Red 🌹
         <br />
-        Violets are Blue.
+        💠 Violets are Blue 💠
         <br />I have 5 fingers.
         <br />
         The middle one is for you.
@@ -18,20 +19,22 @@ const Funny6 = () => {
 
 const Wrapper = styled.div`
   background: black;
-  background-image: url(".././funny6.gif");
-  background-repeat: no-repeat;
-  background-size: 100%;
   height: 100%;
-  font-family: sans-serif;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  width: 100%;
+`;
+
+const Img = styled.img`
+  width: 100%;
+  max-height: 65%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 `;
 
 const Title = styled.p`
-  font-size: larger;
   color: white;
   text-align: center;
+  margin-top: 1%;
 `;
 
 export default Funny6;

@@ -37,11 +37,14 @@ const FunnyCards = ({ cardType }) => {
 
 const Card = styled.div`
   margin: 20px;
-  width: 25%;
+  width: 300px;
+  height: 200px;
+  display: flex;
+  font-size: 12px;
+  font-weight: bold;
   &:hover {
     transform: scale(1.1);
   }
-  border: 1px solid black;
 `;
 
 export default FunnyCards;

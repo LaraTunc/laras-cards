@@ -12,7 +12,7 @@ const Valentines2 = () => {
 
 const Wrapper = styled.div`
   background: black;
-  max-width: 100%;
+  width: 100%;
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -20,14 +20,13 @@ const Wrapper = styled.div`
 `;
 
 const Img = styled.img`
-  max-width: 100%;
-  max-height: 100%;
+  height: 60%;
   display: block;
   margin-left: auto;
   margin-right: auto;
 `;
 
-const Title = styled.h6`
+const Title = styled.p`
   text-align: center;
   color: white;
   width: 100%;

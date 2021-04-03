@@ -5,30 +5,31 @@ const Funny4 = () => {
   return (
     <Wrapper>
       <Img src=".././funny4.gif" alt="kris_jenner" />
-      <Title>It's always 5 o'clock in quarantine.</Title>
+      <Title>It's always 5 o'clock in quarantine 🍼 </Title>
     </Wrapper>
   );
 };
 
 const Wrapper = styled.div`
-  background: white;
+  background: #ffc0cb;
   width: 100%;
   height: 100%;
   font-family: sans-serif;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: stretch;
+  align-content: stretch;
 `;
 
 const Img = styled.img`
-  width: 100%;
-  max-height: 100%;
+  height: 70%;
   display: block;
   margin-left: auto;
   margin-right: auto;
 `;
 
-const Title = styled.h6`
+const Title = styled.p`
   color: black;
   text-align: center;
   margin: 5% 0%;

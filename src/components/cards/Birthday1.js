@@ -16,37 +16,37 @@ const Birthday1 = () => {
 };
 
 const Wrapper = styled.div`
-  background: linen;
-  max-width: 100%;
-  height: 100%;
-  padding: 10px;
+  background: #dae7dd;
   font-family: sans-serif;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  align-items: stretch;
+  align-content: stretch;
+  height: 100%;
+  width: 100%;
 `;
 
-const Title = styled.h1`
+const Title = styled.p`
   text-align: center;
   color: maroon;
   margin: 5px;
-  margin-bottom: 8px;
 `;
 
 const Img = styled.img`
-  max-width: 80%;
-  max-height: 100%;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
+  height: 100%;
 `;
 
 const Left = styled.div`
   flex: 1;
+  height: 100%;
 `;
 
 const Right = styled.div`
   flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 `;
 
 export default Birthday1;

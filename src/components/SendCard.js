@@ -169,10 +169,12 @@ const SendCard = () => {
 };
 
 const Wrapper = styled.div`
-  width: 90%;
-  min-height: 500px;
+  width: 750px;
+  height: 500px;
+  display: flex;
   margin: 15px;
-  border: 1px solid black;
+  font-size: 32px;
+  font-weight: bold;
 `;
 
 const Label = styled.label`

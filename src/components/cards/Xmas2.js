@@ -20,7 +20,7 @@ const Xmas2 = () => {
 
 const Wrapper = styled.div`
   background: lightyellow;
-  max-width: 100%;
+  width: 100%;
   height: 100%;
   padding: 10px;
   font-family: sans-serif;
@@ -38,13 +38,14 @@ const Wrapper2 = styled.div`
   }
 `;
 
-const Title = styled.h6`
-  text-align: center;
+const Title = styled.p`
   color: black;
+  margin: 2%;
 `;
 
 const Img = styled.img`
   max-width: 100%;
+  max-height: 100%;
   display: block;
   margin-left: auto;
   margin-right: auto;

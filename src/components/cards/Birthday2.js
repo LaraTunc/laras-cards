@@ -8,13 +8,13 @@ const Birthday2 = () => {
         Happy birthday to one of the few people whose birthday I can remember
         without a Facebook reminder.
       </Title>
-      <Img src=".././birthday2.gif" alt="birthday_cake_dancing_guy" />
+      <Img src=".././birthday2.gif" alt="birthday_cake" />
     </Wrapper>
   );
 };
 
 const Wrapper = styled.div`
-  background: rgba(255, 238, 163, 255);
+  background: #ffa07a;
   width: 100%;
   height: 100%;
   font-family: sans-serif;
@@ -22,16 +22,24 @@ const Wrapper = styled.div`
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
+  align-items: stretch;
+  align-content: stretch;
 `;
 
-const Title = styled.h6`
+const Title = styled.p`
   text-align: center;
-  color: black;
-  margin: 5px 0px;
+  color: #5e2605;
+  font-weight: bolder;
+  margin: 2%;
+  margin-top: 5%;
 `;
 
 const Img = styled.img`
-  max-width: 60%;
+  height: 60%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 2%;
 `;
 
 export default Birthday2;
