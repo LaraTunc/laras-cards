@@ -1,18 +1,18 @@
-import Birthday1 from "../Birthday1";
-import Birthday2 from "../Birthday2";
-import Birthday3 from "../Birthday3";
-import Funny1 from "../Funny1";
-import Funny2 from "../Funny2";
-import Funny3 from "../Funny3";
-import Funny4 from "../Funny4";
-import Funny5 from "../Funny5";
-import Funny6 from "../Funny6";
-import Funny7 from "../Funny7";
-import Valentines1 from "../Valentines1";
-import Valentines2 from "../Valentines2";
-import Xmas1 from "../Xmas1";
-import Xmas2 from "../Xmas2";
-import Custom1 from "../Custom1";
+import Birthday1 from "./cards/Birthday1";
+import Birthday2 from "./cards/Birthday2";
+import Birthday3 from "./cards/Birthday3";
+import Funny1 from "./cards/Funny1";
+import Funny2 from "./cards/Funny2";
+import Funny3 from "./cards/Funny3";
+import Funny4 from "./cards/Funny4";
+import Funny5 from "./cards/Funny5";
+import Funny6 from "./cards/Funny6";
+import Funny7 from "./cards/Funny7";
+import Valentines1 from "./cards/Valentines1";
+import Valentines2 from "./cards/Valentines2";
+import Xmas1 from "./cards/Xmas1";
+import Xmas2 from "./cards/Xmas2";
+import Custom1 from "./cards/Custom1";
 
 export const cards = {
   birthday1: {
@@ -871,53 +871,66 @@ export const cards = {
     id: "custom1",
     type: "custom",
     component: <Custom1 />,
-    attachments: [],
+    attachments: [
+      {
+        filename: "gif",
+        path:
+          "C:/Users/lara.tunc/Documents/concordia-bootcamps/my-app/public/custom1.gif",
+        cid: "gif@nodemailer.com",
+      },
+    ],
     html: (customMessage) => {
       return `<!DOCTYPE html>
-                <html lang="en">
-                    <head>
-                        <style>
-                            .background {
-                                background-color: linen;
-                                width: "100%";
-                                height:"500px";
-                                padding: 10px;
-                                font-family: sans-serif;
-                            } 
-                            .wrapper {
-                                display:flex;
-                                justify-content:space-between;
-                            }
-                            h1 {
-                                color: maroon;
-                                text-align:center;
-                                margin: 10px;
-                                margin-bottom: 20px;
-                            } 
-                            .gif {
-                                display: block; 
-                                margin-left:auto; 
-                                margin-right:auto;
-                            } 
-                            .left {
-                                flex:1;
-                            }
-                            .right {
-                                flex:1;
-                                margin-left: 15px;
-                            }
-                        </style>
-                    </head>
-                    <body>
-                        <div class="background">
-                            <h1>Happy Birthday!</h1>
-                            <div class="wrapper">
-                                <div class="left"><img src="cid:unique@nodemailer.com" class="gif"/></div>
-                                <div class="right"><p>${customMessage}</p></div>
-                            </div>
-                        </div>
-                    </body>
-                </html>`;
+      <html lang="en">
+        <head>
+          <style>
+            .body {
+              margin: 0px;
+            }
+            .wrapper {
+              background-color: linen;
+              width: 750px;
+              height: 500px;
+              font-family: sans-serif;
+              margin-right: auto;
+              margin-left: auto;
+              display: block;
+            }
+            table {
+              height: 100%;
+              width: 100%;
+            }
+            td {
+              width: 50%;
+            }
+            .gif {
+              height: 80%;
+            }
+            .title {
+              font-size: 32px;
+              font-weight: bold;
+              text-align: center;
+              color: maroon;
+              margin: 5px;
+            }
+          </style>
+        </head>
+        <body>
+          <div class="wrapper">
+            <table>
+              <tr>
+                <td>
+                  <img src="cid:gif@nodemailer.com" class="gif" />
+                </td>
+                <td>
+                  <p class="title">${customMessage}</p>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </body>
+      </html>
+      `;
     },
   },
 };

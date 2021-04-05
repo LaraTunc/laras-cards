@@ -5,13 +5,13 @@ import Account from "./Account";
 import Error from "./Error";
 
 const MainAccount = () => {
-  const { user, userId, setUser } = useContext(UserContext);
+  const { user, setUser } = useContext(UserContext);
   const [error, setError] = useState();
 
   useEffect(() => {
     fetch("/get-user", {
       method: "POST",
-      body: JSON.stringify({ userId }),
+      body: JSON.stringify({ userId: user._id }),
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
@@ -36,8 +36,8 @@ const MainAccount = () => {
         <h3>Account details</h3>
         {error && <Error>{error}</Error>}
         <Info>
-          <b>User name: </b>
-          {user.userName}
+          <b>User Id: </b>
+          {user._id}
         </Info>
         <Info>
           <b>User email: </b>
@@ -45,7 +45,7 @@ const MainAccount = () => {
         </Info>
         <Info>
           <b>User password: </b>
-          {user.password}
+          *********
         </Info>
         <Info>
           <b>User type: </b>

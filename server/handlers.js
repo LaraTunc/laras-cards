@@ -123,7 +123,7 @@ const signUp = async (req, res) => {
       email,
       password: hashPassword,
       sentCards: {},
-      type: "user",
+      type: "Account owner",
     };
     const result = await db.collection("users").insertOne(user);
     assert.equal(1, result.insertedCount);
@@ -262,11 +262,12 @@ const resetPassword = async (req, res) => {
 
 const sendCard = async (req, res) => {
   const {
-    userId,
+    user,
     cardId,
     formData,
     selectedCardHtml,
     selectedCardAttachments,
+    customMessage,
   } = req.body;
 
   //Send the email
@@ -282,7 +283,7 @@ const sendCard = async (req, res) => {
     .sendMail({
       from: "Laras Cards <larascards9@gmail.com>",
       to: `${formData.to.email}`,
-      subject: `You have a card from ${formData.from.fullName}`,
+      subject: `You have a card from ${formData.from.firstName} ${formData.from.lastName}`,
       text: "Please enable the HTML view.",
       html: selectedCardHtml,
       attachments: selectedCardAttachments,
@@ -299,26 +300,36 @@ const sendCard = async (req, res) => {
   const messageId = email.messageId;
 
   //If there is a logged in user push the sent email data to the database and send response
-  if (userId) {
+  if (user) {
     const client = await MongoClient(MONGO_URI, options);
     try {
       await client.connect();
       console.log("connected!");
       const db = client.db("laras-cards");
-      const user = await db.collection("users").findOne({ _id: userId });
+      const user = await db.collection("users").findOne({ _id: user._id });
 
       const userSentCards = user.sentCards;
       const date = new Date();
-      userSentCards[messageId] = {
-        sentCardId: messageId,
-        date,
-        to: formData.to.email,
-        cardId,
-      };
+      if (customMessage) {
+        userSentCards[messageId] = {
+          sentCardId: messageId,
+          date,
+          to: formData.to.email,
+          cardId,
+          customMessage,
+        };
+      } else {
+        userSentCards[messageId] = {
+          sentCardId: messageId,
+          date,
+          to: formData.to.email,
+          cardId,
+        };
+      }
       const newValues = { $set: { sentCards: { ...userSentCards } } };
       const result = await db
         .collection("users")
-        .updateOne({ _id: userId }, newValues);
+        .updateOne({ _id: user._id }, newValues);
       assert.equal(1, result.matchedCount);
       client.close();
       console.log("disconnected!");
@@ -327,7 +338,7 @@ const sendCard = async (req, res) => {
         status: 200,
         messageId,
         user,
-        message: "Your email has been sent and action added to user history.",
+        message: "Your email has been sent and recorded in user history.",
       });
     } catch (err) {
       console.log(err.stack);

@@ -8,10 +8,10 @@ import Title from "./Title";
 import { UserContext } from "./UserContext";
 import Error from "./Error";
 import Spinner from "./Spinner";
-import { fullNameIsValid, emailIsValid, passwordIsValid } from "./utils";
+import { emailIsValid, passwordIsValid } from "./utils";
 
 const SignUp = () => {
-  const { status, setUserId, setUser, setStatus } = useContext(UserContext);
+  const { status, setUser, setStatus } = useContext(UserContext);
   const [error, setError] = useState();
   const [formData, setFormData] = useState({
     email: "",
@@ -51,7 +51,6 @@ const SignUp = () => {
           setStatus("idle");
           // if successful (200) setUser
           if (json.status === 201) {
-            setUserId(json.user._id);
             setUser(json.user);
             setError("");
             history.push("/");

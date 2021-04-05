@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { useHistory } from "react-router-dom";
 import { UserContext } from "./UserContext";
 import PageTemplate from "./PageTemplate";
-import { cards } from "./cards/cardsData/cardsData";
+import { cards } from "./CardsData";
 
 const ValentinesCards = ({ cardType }) => {
   const { selectedCard, setSelectedCard } = useContext(UserContext);

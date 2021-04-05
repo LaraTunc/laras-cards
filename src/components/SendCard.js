@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import styled from "styled-components";
-import { cards } from "./cards/cardsData/cardsData";
+import { cards } from "./CardsData";
 import { useHistory, useParams } from "react-router";
 import Input from "./Input";
 import Form from "./Form";
@@ -8,16 +8,22 @@ import Button from "./Button";
 import { UserContext } from "./UserContext";
 import Error from "./Error";
 import Spinner from "./Spinner";
-import { fullNameIsValid, emailIsValid } from "./utils";
+import { firstNameIsValid, lastNameIsValid, emailIsValid } from "./utils";
 
 const SendCard = () => {
   const { cardId } = useParams();
-  const { status, user, userId, setStatus } = useContext(UserContext);
+  const {
+    status,
+    user,
+    setStatus,
+    customMessage,
+    setCustomMessage,
+  } = useContext(UserContext);
   const [error, setError] = useState();
   const [formData, setFormData] = useState({
     from: {
-      fullName: "",
-      email: "",
+      firstName: "",
+      lastName: "",
     },
     to: {
       email: "",
@@ -33,6 +39,7 @@ const SendCard = () => {
     return cardObject.id === cardId;
   });
   const cardComponent = card.component;
+  const cardType = card.type;
 
   const handleClick = (ev) => {
     ev.preventDefault();
@@ -40,11 +47,11 @@ const SendCard = () => {
     setClicked(true);
 
     //validate form data for errors
-    if (!fullNameIsValid(formData.from.fullName)) {
-      setFormError("Full name cannot be shorter than 2 characters.");
+    if (!firstNameIsValid(formData.from.firstName)) {
+      setFormError("First name cannot be shorter than 2 characters.");
       setStatus("idle");
-    } else if (!user && !emailIsValid(formData.from.email)) {
-      setFormError("Sender email is incorrect.");
+    } else if (!user && !lastNameIsValid(formData.from.lastName)) {
+      setFormError("Last name cannot be shorter than 1 character.");
       setStatus("idle");
     } else if (user && !emailIsValid(user.email)) {
       setFormError("Sender email is incorrect.");
@@ -54,17 +61,23 @@ const SendCard = () => {
       setStatus("idle");
     } else {
       // start process if no form errors
-      const selectedCardHtml = card.html;
+      let selectedCardHtml;
+      if (cardType === "custom") {
+        selectedCardHtml = card.html(customMessage);
+      } else {
+        selectedCardHtml = card.html;
+      }
       const selectedCardAttachments = card.attachments;
-      // sanitize email data
+
       fetch("/send-card", {
         method: "POST",
         body: JSON.stringify({
-          userId,
+          user,
           cardId,
           formData,
           selectedCardHtml,
           selectedCardAttachments,
+          customMessage,
         }),
         headers: {
           Accept: "application/json",
@@ -75,9 +88,9 @@ const SendCard = () => {
         .then((json) => {
           console.log(json);
           setStatus("idle");
+          setCustomMessage("");
           if (json.status === 200) {
             // if successful push to success page
-            setStatus("idle");
             history.push("/confirmation");
           } else {
             // if error display error
@@ -97,43 +110,35 @@ const SendCard = () => {
         </Label>
         <Input
           type={"text"}
-          value={formData.from.fullName}
-          placeholder={"Full display name"}
+          value={formData.from.firstName}
+          placeholder={"First name"}
           onChange={(ev) => {
             setFormData({
               ...formData,
-              from: { ...formData.from, fullName: ev.target.value },
+              from: { ...formData.from, firstName: ev.target.value },
             });
           }}
           highlight={
             clicked &&
-            (fullNameIsValid(formData.from.fullName)
+            (firstNameIsValid(formData.from.firstName)
               ? "default"
               : "2px solid red")
           }
         />
 
         <Input
-          type={"email"}
-          value={user ? user.email : formData.from.email}
-          placeholder={user ? "" : "Email"}
-          onChange={
-            user
-              ? () => {}
-              : (ev) => {
-                  setFormData({
-                    ...formData,
-                    from: { ...formData.from, email: ev.target.value },
-                  });
-                }
-          }
+          type={"text"}
+          value={formData.from.lastName}
+          placeholder={"Last name"}
+          onChange={(ev) => {
+            setFormData({
+              ...formData,
+              from: { ...formData.from, lastName: ev.target.value },
+            });
+          }}
           highlight={
             clicked &&
-            (user
-              ? emailIsValid(user.email)
-                ? "default"
-                : "2px solid red"
-              : emailIsValid(formData.from.email)
+            (lastNameIsValid(formData.from.lastName)
               ? "default"
               : "2px solid red")
           }
@@ -158,6 +163,22 @@ const SendCard = () => {
           }
         />
 
+        {cardType === "custom" && (
+          <>
+            <Label>
+              <b>Custom Message</b>
+            </Label>
+            <StyledTextarea
+              type={"text"}
+              value={customMessage}
+              placeholder={"Custom Message"}
+              onChange={(ev) => {
+                setCustomMessage(ev.target.value);
+              }}
+            />
+          </>
+        )}
+
         <Button onClick={handleClick}>
           {status === "idle" ? "Send Card" : <Spinner />}
         </Button>
@@ -179,6 +200,17 @@ const Wrapper = styled.div`
 
 const Label = styled.label`
   margin-top: 10px;
+`;
+
+const StyledTextarea = styled.textarea`
+  border-radius: 5px;
+  border: 1px solid lightgray;
+  height: 5em;
+  margin-top: 15px;
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 10px #9ecaed;
+  }
 `;
 
 export default SendCard;

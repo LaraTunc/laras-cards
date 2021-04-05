@@ -11,7 +11,7 @@ import Spinner from "./Spinner";
 import { emailIsValid, passwordIsValid } from "./utils";
 
 const Login = () => {
-  const { status, setUserId, setUser, setStatus } = useContext(UserContext);
+  const { status, setUser, setStatus } = useContext(UserContext);
   const [error, setError] = useState();
   const [formData, setFormData] = useState({
     email: "",
@@ -51,7 +51,6 @@ const Login = () => {
           setStatus("idle");
           // if successful (200) setUser
           if (json.status === 200) {
-            setUserId(json.userId);
             setUser(json.user);
             setError("");
             history.push("/");
