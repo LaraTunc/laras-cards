@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React from "react";
 import GlobalStyles from "./GlobalStyles";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import styled from "styled-components";
@@ -8,7 +8,6 @@ import Homepage from "./Homepage";
 import AboutUs from "./AboutUs";
 import SendCard from "./SendCard";
 import BirthdayCards from "./BirthdayCards";
-import { UserContext } from "./UserContext";
 import XmasCards from "./XmasCards";
 import ValentinesCards from "./ValentinesCards";
 import FunnyCards from "./FunnyCards";
@@ -24,9 +23,6 @@ import Confirmation from "./Confirmation";
 import Logout from "./Logout";
 
 const App = () => {
-  const { user } = useContext(UserContext);
-  console.log("user", user);
-
   return (
     <BrowserRouter>
       <Wrapper>

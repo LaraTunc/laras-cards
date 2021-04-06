@@ -24,10 +24,19 @@ export const emailIsValid = (email) => {
 };
 
 export const passwordIsValid = (password) => {
-  // fix this and add characters and longer than 8
-  if (password.length > 2) {
+  // must be 6 to 20 characters which contain at least one numeric digit, one uppercase and one lowercase letter
+  var passw = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/;
+  if (password.match(passw)) {
     return true;
   } else {
     return false;
+  }
+};
+
+export const passwordIsEntered = (password) => {
+  if (password.length < 4) {
+    return false;
+  } else {
+    return true;
   }
 };

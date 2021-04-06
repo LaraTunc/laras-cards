@@ -6,7 +6,7 @@ import PageTemplate from "./PageTemplate";
 import { cards } from "./CardsData";
 
 const XmasCards = ({ cardType }) => {
-  const { selectedCard, setSelectedCard } = useContext(UserContext);
+  const { setSelectedCard } = useContext(UserContext);
   let history = useHistory();
 
   const cardsArray = Object.values(cards);
@@ -15,9 +15,7 @@ const XmasCards = ({ cardType }) => {
   });
 
   const handleClick = (cardId) => {
-    console.log("cardId", cardId);
     setSelectedCard(cardId);
-    console.log("selectedCard", selectedCard);
     history.push(`/${cardId}/send`);
   };
 

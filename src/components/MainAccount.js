@@ -19,16 +19,20 @@ const MainAccount = () => {
     })
       .then((res) => res.json())
       .then((json) => {
-        console.log(json);
+        // console.log(json);
         // if successful (200) setUser
         if (json.status === 200) {
           setUser(json.user);
         } else {
           // if error display error
-          setError(json.error);
+          setError("An error occurred please try again.");
         }
       });
   }, []);
+
+  const userType = user.type;
+  const userTypeCapitalized =
+    userType.charAt(0).toUpperCase() + userType.slice(1);
 
   return (
     <Account>
@@ -49,7 +53,7 @@ const MainAccount = () => {
         </Info>
         <Info>
           <b>User type: </b>
-          {user.type}
+          {userTypeCapitalized}
         </Info>
       </Wrapper>
     </Account>

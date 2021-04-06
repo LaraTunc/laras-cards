@@ -28,17 +28,23 @@ const bcrypt = require("bcrypt");
 const { v4: uuidv4 } = require("uuid");
 const generator = require("generate-password");
 
+// util
+const formatString = (string) => {
+  const lowerCasedString = string.toLowerCase();
+  const capitalizedString =
+    lowerCasedString.charAt(0).toUpperCase() + lowerCasedString.slice(1);
+  return capitalizedString;
+};
+
 // handlers
 const getUser = async (req, res) => {
   const { userId } = req.body;
   const client = await MongoClient(MONGO_URI, options);
   try {
     await client.connect();
-    console.log("connected!");
     const db = client.db("laras-cards");
     const user = await db.collection("users").findOne({ _id: userId });
     client.close();
-    console.log("disconnected!");
     if (!user) {
       return res.status(404).json({
         status: 404,
@@ -54,7 +60,6 @@ const getUser = async (req, res) => {
   } catch (err) {
     console.log(err.stack);
     client.close();
-    console.log("disconnected!");
 
     return res.status(500).json({
       status: 500,
@@ -68,12 +73,10 @@ const login = async (req, res) => {
   const client = await MongoClient(MONGO_URI, options);
   try {
     await client.connect();
-    console.log("connected!");
     const db = client.db("laras-cards");
     const user = await db.collection("users").findOne({ email });
 
     client.close();
-    console.log("disconnected!");
 
     if (!user) {
       return res.status(404).json({
@@ -98,7 +101,6 @@ const login = async (req, res) => {
   } catch (err) {
     console.log(err.stack);
     client.close();
-    console.log("disconnected!");
 
     return res.status(500).json({
       status: 500,
@@ -115,7 +117,6 @@ const signUp = async (req, res) => {
   const client = await MongoClient(MONGO_URI, options);
   try {
     await client.connect();
-    console.log("connected!");
     const db = client.db("laras-cards");
     const user = {
       _id: uuidv4(),
@@ -129,7 +130,6 @@ const signUp = async (req, res) => {
     assert.equal(1, result.insertedCount);
 
     client.close();
-    console.log("disconnected!");
 
     if (result.insertedCount === 1) {
       return res.status(201).json({
@@ -146,7 +146,6 @@ const signUp = async (req, res) => {
   } catch (err) {
     console.log(err.stack);
     client.close();
-    console.log("disconnected!");
 
     return res.status(500).json({
       status: 500,
@@ -160,7 +159,6 @@ const forgotPassword = async (req, res) => {
   const client = await MongoClient(MONGO_URI, options);
   try {
     await client.connect();
-    console.log("connected!");
     const db = client.db("laras-cards");
     const user = await db.collection("users").findOne({ email });
 
@@ -179,7 +177,6 @@ const forgotPassword = async (req, res) => {
         .updateOne({ email }, newValues);
       assert.equal(1, result.matchedCount);
       client.close();
-      console.log("disconnected!");
 
       // send the email
       let info = await transporter
@@ -187,8 +184,8 @@ const forgotPassword = async (req, res) => {
           from: "Laras Cards <larascards9@gmail.com>",
           to: `${email}`,
           subject: "Your password for Laras Cards",
-          text: `Here is your new password: ${password}. Please reset it upon login for maximum security.`,
-          html: `Here is your new password: ${password}. Please reset it upon login for maximum security.`,
+          text: `Here is your new password: ${newPassword}. Please reset it upon login for maximum security.`,
+          html: `Here is your new password: ${newPassword}. Please reset it upon login for maximum security.`,
         })
         .catch((error) => {
           console.log(error);
@@ -209,7 +206,7 @@ const forgotPassword = async (req, res) => {
     } else {
       //if user does not exist
       client.close();
-      console.log("disconnected!");
+
       return res.status(404).json({
         status: 404,
         error: "User not found. Please try signing up first.",
@@ -218,7 +215,6 @@ const forgotPassword = async (req, res) => {
   } catch (err) {
     console.log(err.stack);
     client.close();
-    console.log("disconnected!");
     return res.status(500).json({
       status: 500,
       error: err,
@@ -234,14 +230,12 @@ const resetPassword = async (req, res) => {
 
   try {
     await client.connect();
-    console.log("connected!");
     const db = client.db("laras-cards");
     const user = await db.collection("users").findOne({ _id });
     const newValues = { $set: { password: hashPassword } };
     const result = await db.collection("users").updateOne({ _id }, newValues);
     assert.equal(1, result.matchedCount);
     client.close();
-    console.log("disconnected!");
 
     //Success
     return res.status(200).json({
@@ -252,7 +246,6 @@ const resetPassword = async (req, res) => {
   } catch (err) {
     console.log(err.stack);
     client.close();
-    console.log("disconnected!");
     return res.status(500).json({
       status: 500,
       error: err,
@@ -283,7 +276,9 @@ const sendCard = async (req, res) => {
     .sendMail({
       from: "Laras Cards <larascards9@gmail.com>",
       to: `${formData.to.email}`,
-      subject: `You have a card from ${formData.from.firstName} ${formData.from.lastName}`,
+      subject: `You have a card from ${formatString(
+        formData.from.firstName
+      )} ${formatString(formData.from.lastName)}`,
       text: "Please enable the HTML view.",
       html: selectedCardHtml,
       attachments: selectedCardAttachments,
@@ -301,12 +296,13 @@ const sendCard = async (req, res) => {
 
   //If there is a logged in user push the sent email data to the database and send response
   if (user) {
+    const userId = user._id;
     const client = await MongoClient(MONGO_URI, options);
     try {
       await client.connect();
-      console.log("connected!");
+
       const db = client.db("laras-cards");
-      const user = await db.collection("users").findOne({ _id: user._id });
+      const user = await db.collection("users").findOne({ _id: userId });
 
       const userSentCards = user.sentCards;
       const date = new Date();
@@ -332,7 +328,7 @@ const sendCard = async (req, res) => {
         .updateOne({ _id: user._id }, newValues);
       assert.equal(1, result.matchedCount);
       client.close();
-      console.log("disconnected!");
+
       //Success for logged in user
       return res.status(200).json({
         status: 200,
@@ -343,7 +339,7 @@ const sendCard = async (req, res) => {
     } catch (err) {
       console.log(err.stack);
       client.close();
-      console.log("disconnected!");
+
       return res.status(500).json({
         status: 500,
         error: err,
@@ -364,11 +360,9 @@ const deleteUser = async (req, res) => {
   const client = await MongoClient(MONGO_URI, options);
   try {
     await client.connect();
-    console.log("connected!");
     const db = client.db("laras-cards");
     const user = await db.collection("users").deleteOne({ _id: userId });
     client.close();
-    console.log("disconnected!");
     if (!user) {
       return res.status(404).json({
         status: 404,
@@ -384,7 +378,6 @@ const deleteUser = async (req, res) => {
   } catch (err) {
     console.log(err.stack);
     client.close();
-    console.log("disconnected!");
 
     return res.status(500).json({
       status: 500,

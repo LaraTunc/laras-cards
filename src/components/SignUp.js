@@ -32,7 +32,7 @@ const SignUp = () => {
       setStatus("idle");
     } else if (!passwordIsValid(formData.password)) {
       setFormError(
-        "Password cannot be shorter than 3 characters. For now. Fix this to 8."
+        "Password must be 6 to 20 characters which contain at least one numeric digit, one uppercase and one lowercase letter."
       );
       setStatus("idle");
     } else {
@@ -47,7 +47,7 @@ const SignUp = () => {
       })
         .then((res) => res.json())
         .then((json) => {
-          console.log(json);
+          // console.log(json);
           setStatus("idle");
           // if successful (200) setUser
           if (json.status === 201) {
@@ -56,7 +56,8 @@ const SignUp = () => {
             history.push("/");
           } else {
             // if error display error
-            setError(json.error);
+            setError("An error occurred please try again.");
+            setStatus("idle");
           }
         });
     }

@@ -32,7 +32,7 @@ const Wrapper = styled.div`
   width: 100%;
   height: 60px;
   padding: 5px;
-  background: yellowgreen;
+  background: #e3e3e3;
   display: flex;
   justify-content: space-between;
 `;
@@ -51,7 +51,7 @@ const StyledLink = styled(NavLink).attrs({ activeClassName })`
   color: black;
   font-size: 20px;
   text-decoration: none;
-  margin: 0px 15px;
+  margin: 0px 25px;
   &:hover {
     border-bottom: 2px solid black;
   }

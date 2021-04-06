@@ -86,7 +86,7 @@ const SendCard = () => {
       })
         .then((res) => res.json())
         .then((json) => {
-          console.log(json);
+          // console.log(json);
           setStatus("idle");
           setCustomMessage("");
           if (json.status === 200) {
@@ -94,7 +94,8 @@ const SendCard = () => {
             history.push("/confirmation");
           } else {
             // if error display error
-            setError(json.error);
+            setError("An error occurred please try again.");
+            setStatus("idle");
           }
         });
     }

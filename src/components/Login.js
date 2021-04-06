@@ -8,7 +8,7 @@ import Title from "./Title";
 import { UserContext } from "./UserContext";
 import Error from "./Error";
 import Spinner from "./Spinner";
-import { emailIsValid, passwordIsValid } from "./utils";
+import { emailIsValid, passwordIsEntered } from "./utils";
 
 const Login = () => {
   const { status, setUser, setStatus } = useContext(UserContext);
@@ -30,10 +30,8 @@ const Login = () => {
     if (!emailIsValid(formData.email)) {
       setFormError("Email is invalid.");
       setStatus("idle");
-    } else if (!passwordIsValid(formData.password)) {
-      setFormError(
-        "Password cannot be shorter than 3 characters. For now. Fix this to 8."
-      );
+    } else if (!passwordIsEntered(formData.password)) {
+      setFormError("Password is incorrect.");
       setStatus("idle");
     } else {
       // start process if no form errors
@@ -47,7 +45,7 @@ const Login = () => {
       })
         .then((res) => res.json())
         .then((json) => {
-          console.log(json);
+          // console.log(json);
           setStatus("idle");
           // if successful (200) setUser
           if (json.status === 200) {
@@ -56,7 +54,8 @@ const Login = () => {
             history.push("/");
           } else {
             // if error display error
-            setError(json.error);
+            setError("An error occurred please try again.");
+            setStatus("idle");
           }
         });
     }
@@ -87,7 +86,7 @@ const Login = () => {
           }}
           highlight={
             clicked &&
-            (passwordIsValid(formData.password) ? "default" : "2px solid red")
+            (passwordIsEntered(formData.password) ? "default" : "2px solid red")
           }
         />
         <Button onClick={handleClick}>
