@@ -30,7 +30,7 @@ const Logout = () => {
 };
 
 const Wrapper = styled.div`
-  width: 70%;
+  width: 50%;
   height: 100%;
   display: flex;
   flex-direction: column;
