@@ -6,7 +6,8 @@ import Title from "./Title";
 const Homepage = () => {
   return (
     <>
-      <Title text={"Pick Card Type"} />
+      <Title>Pick a Card Type</Title>
+      <Info>Send e-cards in an instant to anyone in your life!</Info>
       <Cards>
         <CardBubble
           path={"/birthday"}
@@ -47,6 +48,14 @@ const Cards = styled.div`
   display: flex;
   justify-content: space-between;
   margin-top: 30px;
+`;
+
+const Info = styled.p`
+  margin-top: 30px;
+  margin-bottom: 15px;
+  width: 70%;
+  font-size: 25px;
+  text-align: center;
 `;
 
 export default Homepage;

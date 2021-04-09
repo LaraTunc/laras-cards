@@ -82,7 +82,7 @@ const App = () => {
               <ContactUs />
             </Route>
             <Route exact path="/portfolio">
-              <div>This is my portfolio</div>
+              <div>This is my portfolio - coming soon</div>
             </Route>
           </Switch>
         </Wrapper2>

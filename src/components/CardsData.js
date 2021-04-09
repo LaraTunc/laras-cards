@@ -13,6 +13,8 @@ import Valentines2 from "./cards/Valentines2";
 import Xmas1 from "./cards/Xmas1";
 import Xmas2 from "./cards/Xmas2";
 import Custom1 from "./cards/Custom1";
+import Custom2 from "./cards/Custom2";
+import Custom3 from "./cards/Custom3";
 
 export const cards = {
   birthday1: {
@@ -931,6 +933,147 @@ export const cards = {
         </body>
       </html>
       `;
+    },
+  },
+  custom2: {
+    id: "custom2",
+    type: "custom",
+    component: <Custom2 />,
+    attachments: [
+      {
+        filename: "gif",
+        path:
+          "C:/Users/lara.tunc/Documents/concordia-bootcamps/my-app/public/custom2.gif",
+        cid: "gif@nodemailer.com",
+      },
+      {
+        filename: "gif",
+        path:
+          "C:/Users/lara.tunc/Documents/concordia-bootcamps/my-app/public/custom2_2.gif",
+        cid: "gif2@nodemailer.com",
+      },
+    ],
+    html: (customMessage) => {
+      return `<!DOCTYPE html>
+      <html lang="en">
+        <head>
+          <style>
+            body {
+              margin: 0px;
+            }
+            .wrapper {
+              height: 500px;
+              width: 750px;
+              font-family: sans-serif;
+              background: #ecf87f;
+              display: block;
+              text-align: center;
+              margin-left: auto;
+              margin-right: auto;
+            }
+            .gif {
+              height: 60%;
+              margin-right: 5%;
+              margin-left: 5%;
+              display: inline-block;
+            }
+            .gif2 {
+              max-width: 25%;
+              height: 40%;
+              display: inline-block;
+            }
+            .title {
+              width: 100%;
+              text-align: center;
+              font-weight: bold;
+              font-size: 32px;
+              color: black;
+              margin-top: 10%;
+              z-index: 5;
+            }
+          </style>
+        </head>
+        <body>
+          <div class="wrapper">
+            <img src="cid:gif2@nodemailer.com" class="gif2" />
+            <img src="cid:gif@nodemailer.com" class="gif" />
+            <img src="cid:gif2@nodemailer.com" class="gif2" />
+            <p class="title">${customMessage}</p>
+          </div>
+        </body>
+      </html>`;
+    },
+  },
+  custom3: {
+    id: "custom3",
+    type: "custom",
+    component: <Custom3 />,
+    attachments: [
+      {
+        filename: "gif",
+        path:
+          "C:/Users/lara.tunc/Documents/concordia-bootcamps/my-app/public/custom3.gif",
+        cid: "gif@nodemailer.com",
+      },
+    ],
+    html: (customMessage) => {
+      return `<!DOCTYPE html>
+      <html lang="en">
+        <head>
+          <style>
+            body {
+              margin: 0px;
+            }
+            .wrapper {
+              height: 500px;
+              width: 750px;
+              font-family: sans-serif;
+              background: #87aca3;
+              display: block;
+              text-align: center;
+              margin-left: auto;
+              margin-right: auto;
+            }
+            .row1 {
+              height: 20%;
+            }
+            .row2 {
+              height: 80%;
+              vertical-align: bottom;
+            }
+            table {
+              width: 100%;
+              height: 100%;
+            }
+            .title {
+              width: 100%;
+              text-align: center;
+              font-weight: bold;
+              font-size: 32px;
+              color: black;
+              margin-top: 2%;
+              margin-bottom: 2%;
+            }
+            .gif {
+              display: block;
+              height: 100%;
+              width: 100%;
+            }
+          </style>
+        </head>
+        <body>
+          <div class="wrapper">
+            <table>
+              <tr class="row1">
+                <td><p class="title">${customMessage}</p></td>
+              </tr>
+              <tr class="row2">
+                <td><img src="cid:gif@nodemailer.com" class="gif" /></td>
+              </tr>
+            </table>
+          </div>
+        </body>
+      </html>`;
     },
   },
 };
