@@ -27,6 +27,7 @@ const assert = require("assert");
 const bcrypt = require("bcrypt");
 const { v4: uuidv4 } = require("uuid");
 const generator = require("generate-password");
+const { cards } = require("./data");
 
 // util
 const formatString = (string) => {
@@ -258,10 +259,24 @@ const sendCard = async (req, res) => {
     user,
     cardId,
     formData,
-    selectedCardHtml,
-    selectedCardAttachments,
+    // selectedCardHtml,
+    // selectedCardAttachments,
     customMessage,
   } = req.body;
+
+  // find card and get html and attachments
+  const cardsArray = Object.values(cards);
+  const card = cardsArray.find((cardObject) => {
+    return cardObject.id === cardId;
+  });
+  const cardType = card.type;
+  let selectedCardHtml;
+  if (cardType === "custom") {
+    selectedCardHtml = card.html(customMessage);
+  } else {
+    selectedCardHtml = card.html;
+  }
+  const selectedCardAttachments = card.attachments;
 
   //Send the email
   transporter.verify(function (error, success) {

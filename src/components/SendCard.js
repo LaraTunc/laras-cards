@@ -61,22 +61,12 @@ const SendCard = () => {
       setStatus("idle");
     } else {
       // start process if no form errors
-      let selectedCardHtml;
-      if (cardType === "custom") {
-        selectedCardHtml = card.html(customMessage);
-      } else {
-        selectedCardHtml = card.html;
-      }
-      const selectedCardAttachments = card.attachments;
-
       fetch("/send-card", {
         method: "POST",
         body: JSON.stringify({
           user,
           cardId,
           formData,
-          selectedCardHtml,
-          selectedCardAttachments,
           customMessage,
         }),
         headers: {
