@@ -62,6 +62,7 @@ const SendCard = () => {
     } else {
       // start process if no form errors
       fetch(`${process.env.REACT_APP_API_URL}/send-card`, {
+        mode: "no-cors",
         method: "POST",
         body: JSON.stringify({
           user,
