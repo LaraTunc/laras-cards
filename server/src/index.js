@@ -12,3 +12,7 @@ app.use(require("./routes"));
 const server = app.listen(PORT, function () {
   console.info("🌍 Listening on port " + server.address().port);
 });
+
+app.get("/test", (req, res) => {
+  res.send("Hello from Express!");
+});

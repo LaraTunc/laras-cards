@@ -31,7 +31,7 @@ const ResetPassword = () => {
       setStatus("idle");
     } else {
       // if validated start process
-      fetch("/reset-password", {
+      fetch(`${process.env.REACT_APP_API_URL}/reset-password`, {
         method: "POST",
         body: JSON.stringify({ _id: user._id, newPassword }),
         headers: {

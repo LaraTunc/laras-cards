@@ -28,7 +28,7 @@ const ForgotPassword = () => {
       setStatus("idle");
     } else {
       // if validated start process
-      fetch("/forgot-password", {
+      fetch(`${process.env.REACT_APP_API_URL}/forgot-password`, {
         method: "POST",
         body: JSON.stringify({ email }),
         headers: {

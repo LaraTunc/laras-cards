@@ -61,7 +61,7 @@ const SendCard = () => {
       setStatus("idle");
     } else {
       // start process if no form errors
-      fetch("/send-card", {
+      fetch(`${process.env.REACT_APP_API_URL}/send-card`, {
         method: "POST",
         body: JSON.stringify({
           user,

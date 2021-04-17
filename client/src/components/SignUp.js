@@ -37,7 +37,7 @@ const SignUp = () => {
       setStatus("idle");
     } else {
       // start process if no form errors
-      fetch("/sign-up", {
+      fetch(`${process.env.REACT_APP_API_URL}/sign-up`, {
         method: "POST",
         body: JSON.stringify({ ...formData }),
         headers: {

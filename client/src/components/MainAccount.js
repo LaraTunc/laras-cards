@@ -9,7 +9,7 @@ const MainAccount = () => {
   const [error, setError] = useState();
 
   useEffect(() => {
-    fetch("/get-user", {
+    fetch(`${process.env.REACT_APP_API_URL}/get-user`, {
       method: "POST",
       body: JSON.stringify({ userId: user._id }),
       headers: {
