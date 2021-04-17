@@ -1,22 +1,10 @@
 # Lara's Cards
 
-Welcome to my app!
+Welcome to my app!\
 It's called Lara's Cards. It will enable the user to send styled e-cards. There are several different types of pre-made e-cards to choose from with the ability to insert custom messages.
-I built this app when I could not find any free e-card providers to send e-cards to my friends. So I built one myself.
-I hope you enjoy using it :)
+I built this app when I could not find any free e-card providers to send e-cards to my friends. So I built one myself.\
+I hope you enjoy using it :)\
 
 # Notes
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
-## Available Scripts
-
-In the project directory, you can run:
-
-### `yarn start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
