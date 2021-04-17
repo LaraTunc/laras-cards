@@ -1,0 +1,22 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "nodemon src/index.js"
+  },
+  "dependencies": {
+    "assert": "^2.0.0",
+    "bcrypt": "^5.0.1",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "generate-password": "^1.6.0",
+    "mongodb": "^3.6.6",
+    "morgan": "^1.10.0",
+    "nodemailer": "^6.5.0",
+    "nodemon": "^2.0.7",
+    "uuid": "^8.3.2"
+  }
+}
