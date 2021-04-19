@@ -264,22 +264,14 @@ const sendCard = async (req, res) => {
     customMessage,
   } = req.body;
 
+  console.log("req.body:", req.body);
+
   // find card and get html and attachments
   console.log("cardId:", cardId);
   const cardsArray = Object.values(cards);
-  console.log("cardsArray:", cardsArray);
   const card = cardsArray.find((cardObject) => {
-    console.log(
-      "cardscardObject.id & cardId",
-      typeof cardObject.id,
-      cardObject.id,
-      typeof cardId,
-      cardId,
-      cardObject.id === cardId
-    );
     return cardObject.id === cardId;
   });
-  console.log("card:", card);
   const cardType = card.type;
   let selectedCardHtml;
   if (cardType === "custom") {
