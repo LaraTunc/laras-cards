@@ -76,7 +76,7 @@ const SendCard = () => {
       })
         .then((res) => res.json())
         .then((json) => {
-          console.log(json);
+          // console.log(json);
           setStatus("idle");
           setCustomMessage("");
           if (json.status === 200) {
