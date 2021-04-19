@@ -269,6 +269,7 @@ const sendCard = async (req, res) => {
   const card = cardsArray.find((cardObject) => {
     return cardObject.id === cardId;
   });
+  console.log("card:", card);
   const cardType = card.type;
   let selectedCardHtml;
   if (cardType === "custom") {
