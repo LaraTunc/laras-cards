@@ -265,8 +265,18 @@ const sendCard = async (req, res) => {
   } = req.body;
 
   // find card and get html and attachments
+  console.log("cardId:", cardId);
   const cardsArray = Object.values(cards);
+  console.log("cardsArray:", cardsArray);
   const card = cardsArray.find((cardObject) => {
+    console.log(
+      "cardscardObject.id & cardId",
+      typeof cardObject.id,
+      cardObject.id,
+      typeof cardId,
+      cardId,
+      cardObject.id === cardId
+    );
     return cardObject.id === cardId;
   });
   console.log("card:", card);
