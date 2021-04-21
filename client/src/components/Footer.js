@@ -9,7 +9,7 @@ const Footer = () => {
       <div>|</div>
       <StyledLink to="/portfolio">More from Lara</StyledLink>
       <div>|</div>
-      <Div>April 20 2021</Div>
+      <Div>April 20, 2021</Div>
     </Wrapper>
   );
 };
