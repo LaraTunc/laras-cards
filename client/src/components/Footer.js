@@ -9,7 +9,7 @@ const Footer = () => {
       <div>|</div>
       <StyledLink to="/portfolio">More from Lara</StyledLink>
       <div>|</div>
-      <div>Published: April 20 2021</div>
+      <Div>April 20 2021</Div>
     </Wrapper>
   );
 };
@@ -31,6 +31,11 @@ const StyledLink = styled(NavLink)`
   &:hover {
     cursor: pointer;
   }
+`;
+
+const Div = styled.div`
+  font-size: 14px;
+  margin: 0px 15px;
 `;
 
 export default Footer;
