@@ -5,7 +5,7 @@ import { NavLink } from "react-router-dom";
 const Footer = () => {
   return (
     <Wrapper>
-      <StyledLink to="/contact-us">Contact Us</StyledLink>
+      <StyledLink to="/contact-us">Contact Me</StyledLink>
       <div>|</div>
       <StyledLink to="/portfolio">More from Lara</StyledLink>
       <div>|</div>
