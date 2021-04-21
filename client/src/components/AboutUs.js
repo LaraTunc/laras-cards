@@ -8,20 +8,20 @@ const AboutUs = () => {
       <Title text={"About Me"} />
       <Pic src=".././LaraTunc.jpg" alt="Lara Tunc" />
       <Paragraph>
-        Hello! My name is Lara and I like to code. This is a project I did for
-        my final project for my bootcamp.
+        Hello! My name is Lara and I like to code 💻. This is a project I did
+        for my final project for my bootcamp.
       </Paragraph>
       <Paragraph>
         When I was looking for ideas as to what to build I remembered that
-        recently I tried sending an e-card to my friend but all options required
-        payment. Being excited to show off my newly polished skills and a
-        supporter of free accessible technology for everyone, I thought that if
-        it doesn't exist I can create it myself. This is what came out of this
-        idea.
+        recently I tried sending a 💌 to my friend but all available options
+        required 💰. Being excited to show off my newly polished coding skills
+        and a supporter of free accessible technology for everyone, I thought
+        that if it doesn't exist I can create it myself 💅. This is what came
+        out of this idea.
       </Paragraph>
       <Paragraph>
         I hope you find it useful! If you would like to see other projects from
-        me please refer to my portfolio below at the footer.
+        me please refer to my portfolio below at the footer 😉
       </Paragraph>
     </>
   );
