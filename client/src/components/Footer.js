@@ -8,6 +8,8 @@ const Footer = () => {
       <StyledLink to="/contact-us">Contact Us</StyledLink>
       <div>|</div>
       <StyledLink to="/portfolio">More from Lara</StyledLink>
+      <div>|</div>
+      <div>Published: April 20 2021</div>
     </Wrapper>
   );
 };
