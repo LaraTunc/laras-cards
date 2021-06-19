@@ -5,6 +5,8 @@ It's called Lara's Cards. It will enable the user to send styled e-cards. There 
 I built this app when I could not find any free e-card providers to send e-cards to my friends. So I built one myself.\
 I hope you enjoy using it :)
 
+https://larascards.netlify.app/
+
 # Special thanks
 
 I would like to thank Concordia Bootcamps- Journey for giving the best bootcamp education out there.
