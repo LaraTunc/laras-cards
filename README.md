@@ -17,13 +17,7 @@ Browsing\
 Sending a card\
 <img src="./client/public/gif1.gif"/>
 
-Validation\
-<img src="./client/public/validation.gif"/>
-
-Signup\
-<img src="./client/public/signup.gif"/>
-
-Account details and history\
+Account details and history for logged in users\
 <img src="./client/public/account.gif"/>
 
 # Special thanks
