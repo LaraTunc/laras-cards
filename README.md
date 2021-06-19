@@ -1,8 +1,6 @@
 # Lara's Cards
 
-<video width="320" height="240" controls>
-  <source src="video.mp4" type="video/mp4">
-</video>
+<img src="./client/public/gif1.gif"/>
 
 Welcome to my app!\
 It's called Lara's Cards. It will enable the user to send styled e-cards. There are several different types of pre-made e-cards to choose from with the ability to insert custom messages.
