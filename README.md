@@ -11,19 +11,19 @@ https://larascards.netlify.app/
 
 # Functionality
 
-Browsing
+Browsing\
 <img src="./client/public/browse.gif"/>
 
-Sending a card
+Sending a card\
 <img src="./client/public/gif1.gif"/>
 
-Validation
+Validation\
 <img src="./client/public/validation.gif"/>
 
-Signup
+Signup\
 <img src="./client/public/signup.gif"/>
 
-Account details and history
+Account details and history\
 <img src="./client/public/account.gif"/>
 
 # Special thanks
