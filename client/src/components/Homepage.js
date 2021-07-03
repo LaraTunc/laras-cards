@@ -8,9 +8,9 @@ const Homepage = () => {
 		<>
 			<Title>Pick a Card Type</Title>
 			<Info>Send e-cards in an instant to anyone in your life!</Info>
-			<p>
-				<i>Works optimally with Gmail, subpar with Outlook.</i>
-			</p>
+			<Small>
+				<i>Results with Outlooks are subpar.</i>
+			</Small>
 			<Cards>
 				<CardBubble
 					path={'/birthday'}
@@ -54,6 +54,10 @@ const Info = styled.p`
 	width: 70%;
 	font-size: 25px;
 	text-align: center;
+`;
+
+const Small = styled.p`
+	font-size: 12px;
 `;
 
 export default Homepage;

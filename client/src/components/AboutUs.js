@@ -37,7 +37,6 @@ const Pic = styled.img`
 	border-radius: 50%;
 	width: 120px;
 	height: 120px;
-	border: 5px solid #80cbc4;
 `;
 
 const Paragraph = styled.p`
